@@ -30,7 +30,7 @@ public class LinqTest {
                 break;
             case 2:
                 // _.map in JS.
-                var mapped = source.Select(i => (i * 2));
+                var mapped = source.Select(i => (i << 1));
                 OutputLog("Select", mapped);  // => 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
                 break;
             case 3:
