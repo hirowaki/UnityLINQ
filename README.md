@@ -2,7 +2,7 @@
 #### Unity 5.4
 
 * C#|Unity|LINQ usage samples comparing to Javascript (lodash/underscore)
-* Observer pattern using UniRX. (You'll need to get it @AssetStore and import to Plugin/)
+* Observer pattern using UniRX. (You'll need to get it @AssetStore and import to Plugins/)
 
 Sample cases.
 ```C#
