@@ -21,7 +21,7 @@ public class MainScene : MonoBehaviour {
                     _result="COMPLETED";
                 }
             );
-	}
+    }
 
     void OnGUI() {
         _guiStyle.fontSize = 32;

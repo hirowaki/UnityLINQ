@@ -26,7 +26,7 @@ public class LinqTest {
     // The functions themselves are similar to lodash/underscore in JS.
     // JS.Object would be C#.Enumerable here.
     public static IEnumerator RunningSamples (IObserver<string> observer) {
-        var source = Enumerable.Range(0, 11).ToArray();
+        var source = Enumerable.Range(0, 11);
 
         string result = null;
 
@@ -44,56 +44,68 @@ public class LinqTest {
                 result = FormatResult("Select", mapped);  // => 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
                 break;
             case 3:
+                var result3 = (new [] {
+                    Enumerable.Range(0, 2).ToArray(), 
+                    Enumerable.Range(10, 2).ToArray()
+                }).SelectMany(i => i.Select(j => j));   // expands [Enumerable, Enumerable] to [Enumerable].
+                result = FormatResult("SelectMany", result3);  // => 0, 1, 10, 11
+                break;
+            case 4:
+                // replace by using SelectMany.
+                var many = (new [] {source}).SelectMany(i => Enumerable.Range(10, 3));
+                result = FormatResult("SelectMany", many.Select(i => i));  // => 10, 11, 12.
+                break;
+            case 5:
                 // _.take / _.slice in JS. taking the three elements from the head.
                 var takenHead = source.Take(3);
                 result = FormatResult("Take", takenHead);  // => 0, 1, 2
                 break;
-            case 4:
+            case 6:
                 // _.filter(a => a < 5)
                 var takenWhile = source.TakeWhile(i => i < 5);
                 result = FormatResult("TakeWhile", takenWhile);  // => 0, 1, 2, 3, 4
                 break;
-            case 5:
+            case 7:
                 // takenWhile would break the loop right away when the condition fails. 
                 var takenWhile2 = source.TakeWhile(i => ((i & 1) == 0));
                 result = FormatResult("TakeWhile", takenWhile2);  // => 0.
                 break;
-            case 6:
+            case 8:
                 // _.head.
                 var first = source.First();
                 result = FormatResult("First", first);  // => 0
                 break;
-            case 7:
+            case 9:
                 // First can have a condition.
                 var first2 = source.First(i => i > 2);
                 result = FormatResult("First", first2);  // => 3
                 break;
-            case 8:
+            case 10:
                 // FirstOrDefault.
                 var firstD = source.FirstOrDefault(i => i > 100);   // no such elements in the souce.
                 result = FormatResult("FirstOrDefault", firstD);  // => 0. then default<T>(=> 0) would come.
                 break;
-            case 9:
+            case 11:
                 // Count.
                 var count = source.Count();
                 result = FormatResult("Count", count);  // 10
                 break;
-            case 10:
+            case 12:
                 // Count. (_.filter().length).
                 var count2 = source.Count(i => ((i & 1) != 0));
                 result = FormatResult("Count", count2); // 5
                 break;
-            case 11:
+            case 13:
                 // _.every.
                 var all = source.All(i => (i < 1000));  // all elements would satisfy this condition.
                 result = FormatResult("All", all);  // True
                 break;
-            case 12:
+            case 14:
                 // _.isEmpty.
                 var any = source.Any();
                 result = FormatResult("Any", any);  // True
                 break;
-            case 13:
+            case 15:
                 // _.some.
                 var some = source.Any(i => (i > 100));    // no elements will satisfy the condition (i > 100).
                 result = FormatResult("Any", some);  // False.
